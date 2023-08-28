@@ -6,10 +6,9 @@ import (
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	"github.com/raven-ruiwen/go-helper/auth0"
-	"net/http"
 )
 
-func (srv *Service) GetRouter() http.Handler {
+func (srv *Service) GetRouter() *gin.Engine {
 	router := gin.Default()
 	router.Use(gzip.Gzip(gzip.BestSpeed))
 	router = auth0.RegisterRouter(router, []byte("secret"))

@@ -100,6 +100,16 @@ func (srv *Service) generateInviteCode(model interface{}) string {
 	return code
 }
 
+func (srv *Service) isUniqueHandleExist(userId int64, handle string) bool {
+	if err := srv.mysql.Client.Model(Users{}).Where("id != ? and username = ?", userId, handle).First(&Users{}).Error; err == nil {
+		return true
+	}
+	if err := srv.mysql.Client.Model(Team{}).Where("handle = ?", handle).First(&Team{}).Error; err == nil {
+		return true
+	}
+	return false
+}
+
 func GetRandomString(l int) string {
 	str := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	bytes := []byte(str)
