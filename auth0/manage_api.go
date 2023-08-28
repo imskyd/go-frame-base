@@ -2,7 +2,6 @@ package auth0
 
 import (
 	"encoding/json"
-	"errors"
 	"github.com/imroc/req"
 	"github.com/sirupsen/logrus"
 	"time"
@@ -16,7 +15,7 @@ func SetLogger(_logger *logrus.Logger) {
 	logger = _logger
 }
 
-const CacheKey = "ChainBotApi:Auth0AccessKey"
+const CacheKey = "auth0:Auth0AccessKey"
 
 type TokenResp struct {
 	Info TokenInfo
@@ -32,41 +31,6 @@ type TokenInfo struct {
 	Error            string `json:"error"`
 	ErrorDescription string `json:"error_description"`
 	ErrorUri         string `json:"error_uri"`
-}
-
-func GetAccessToken(host string, clientId string, clientSecret string) TokenResp {
-	url := "https://" + host + "/oauth/token"
-
-	body := make(map[string]string)
-	body["client_id"] = clientId
-	body["client_secret"] = clientSecret
-	body["audience"] = "https://" + host + "/api/v2/"
-	body["grant_type"] = "client_credentials"
-
-	dataJson, _ := json.Marshal(body)
-	header := req.Header{
-		"Content-Type": "application/json",
-	}
-	resp, err := req.Post(url, string(dataJson), header)
-
-	if err != nil {
-		logger.Errorf("auth0 GetAccessToken error: %s", err.Error())
-		return TokenResp{Info: TokenInfo{}, Err: err}
-	}
-
-	var info TokenInfo
-	if err := json.Unmarshal(resp.Bytes(), &info); err != nil {
-		logger.Errorf("auth0 GetAccessToken json.Unmarshal error: %s", err.Error())
-		return TokenResp{Info: TokenInfo{}, Err: err}
-	}
-
-	if info.Error != "" {
-		infoJ, _ := json.Marshal(info)
-		logger.Errorf("auth0 GetAccessToken info error: %s", string(infoJ))
-		return TokenResp{Info: TokenInfo{}, Err: errors.New(info.Error)}
-	}
-
-	return TokenResp{Info: info, Err: nil}
 }
 
 type UserInfo struct {
