@@ -32,6 +32,10 @@ func (srv *Service) getAuth0AccessToken() string {
 	return res
 }
 
+func (srv *Service) GetBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, error) {
+	return srv.getBrowserUserFromContext(ctx)
+}
+
 func (srv *Service) getBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, error) {
 	var token string
 	if cookieToken, err := ctx.Cookie("token"); err == nil {
