@@ -9,6 +9,8 @@ import (
 )
 
 func (srv *Service) GetRouter() *gin.Engine {
+	srv.ModelCheck()
+
 	router := gin.Default()
 	router.Use(gzip.Gzip(gzip.BestSpeed))
 	router = auth0.RegisterRouter(router, []byte("secret"))

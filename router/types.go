@@ -4,7 +4,7 @@ import (
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/gin-gonic/gin"
 	redisV8 "github.com/go-redis/redis/v8"
-	"github.com/imskyd/go-frame-base/base"
+	"github.com/imskyd/go-frame-base/types"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
 	"strings"
@@ -148,7 +148,7 @@ func (w Whitelist) Allow(api string, ip string) bool {
 type Service struct {
 	mysql       *mysql.MySQL
 	auth0Config *auth0.Config
-	jwtConfig   *base.JwtConfig
+	jwtConfig   *types.JwtConfig
 	logger      *logrus.Logger
 	redis       *redisV8.Client
 	prefix      string

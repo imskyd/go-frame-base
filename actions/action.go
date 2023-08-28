@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"github.com/CoinSummer/go-notify"
 	"github.com/imroc/req"
-	"github.com/imskyd/go-frame-base/base"
+	"github.com/imskyd/go-frame-base/types"
 	"github.com/sirupsen/logrus"
 )
 
@@ -14,9 +14,9 @@ func SetActionLogger(_logger *logrus.Logger) {
 	logger = _logger
 }
 
-var smtpConfig *base.SmtpConfig
+var smtpConfig *types.SmtpConfig
 
-func SetSmtpConfig(_smtpConfig *base.SmtpConfig) {
+func SetSmtpConfig(_smtpConfig *types.SmtpConfig) {
 	smtpConfig = _smtpConfig
 }
 

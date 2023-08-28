@@ -5,9 +5,9 @@ import (
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/imskyd/go-frame-base/actions"
 	auth02 "github.com/imskyd/go-frame-base/auth0"
-	"github.com/imskyd/go-frame-base/base"
 	"github.com/imskyd/go-frame-base/database"
 	redisPkg "github.com/imskyd/go-frame-base/redis"
+	"github.com/imskyd/go-frame-base/types"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
 )
@@ -17,7 +17,7 @@ func init() {
 }
 
 // New create new router service
-func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *base.JwtConfig, auth0Config *auth0.Config, redisConfig *redisPkgBase.Config, smtpConfig *base.SmtpConfig) (srv *Service, err error) {
+func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *types.JwtConfig, auth0Config *auth0.Config, redisConfig *redisPkgBase.Config, smtpConfig *types.SmtpConfig) (srv *Service, err error) {
 	actions.SetSmtpConfig(smtpConfig)
 
 	db := database.NewMysql(dbConfig)
@@ -27,9 +27,6 @@ func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *base.JwtConfi
 	srv.jwtConfig = jwtConfigFromFile
 	//redis
 	srv.redis = redisPkg.NewRedis(redisConfig)
-	//mysqlClient.Client.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").AutoMigrate(&Users{})
-	//mysqlClient.Client.HasTable(&Users{})
-	//mysqlClient.Client.HasTable(&Users{})
 
 	logF := &logrus.JSONFormatter{}
 	logrus.SetFormatter(logF)
@@ -38,6 +35,21 @@ func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *base.JwtConfi
 	auth02.SetLogger(logger)
 	srv.prefix = prefix
 	return srv, nil
+}
+
+func (srv *Service) ModelCheck() {
+	if !srv.mysql.Client.HasTable(&Users{}) {
+		srv.mysql.Client.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").AutoMigrate(&Users{})
+	}
+	if !srv.mysql.Client.HasTable(&UsersSub{}) {
+		srv.mysql.Client.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").AutoMigrate(&UsersSub{})
+	}
+	if !srv.mysql.Client.HasTable(&Team{}) {
+		srv.mysql.Client.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").AutoMigrate(&Team{})
+	}
+	if !srv.mysql.Client.HasTable(&TeamUser{}) {
+		srv.mysql.Client.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4").AutoMigrate(&TeamUser{})
+	}
 }
 
 //func (srv *Service) syncAuth0Token() {

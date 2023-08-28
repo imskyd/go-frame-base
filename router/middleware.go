@@ -40,7 +40,7 @@ func (srv *Service) teamBasicMiddleWare() gin.HandlerFunc {
 			browserUser, _ := srv.getBrowserUser(c)
 			tId := c.Param("team_id")
 			teamId, _ := strconv.Atoi(tId)
-			if !srv.isUserHaveBasicAccess(int64(teamId), browserUser.UserId) {
+			if !srv.IsUserHaveBasicAccess(int64(teamId), browserUser.UserId) {
 				c.AbortWithStatusJSON(403, ResponseMsg{
 					Code: 403,
 					Msg:  "Forbidden",
@@ -58,7 +58,7 @@ func (srv *Service) teamOperateMiddleWare() gin.HandlerFunc {
 			browserUser, _ := srv.getBrowserUser(c)
 			tId := c.Param("team_id")
 			teamId, _ := strconv.Atoi(tId)
-			if !srv.isUserHaveOperateAccess(int64(teamId), browserUser.UserId) {
+			if !srv.IsUserHaveOperateAccess(int64(teamId), browserUser.UserId) {
 				c.AbortWithStatusJSON(403, ResponseMsg{
 					Code: 403,
 					Msg:  "Forbidden, only admin or operator can operate",
