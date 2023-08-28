@@ -4,9 +4,9 @@ import (
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/gin-gonic/gin"
 	redisV8 "github.com/go-redis/redis/v8"
+	"github.com/imskyd/go-frame-base/base"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
-	"go-frame-base/base"
 	"strings"
 )
 

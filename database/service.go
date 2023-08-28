@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/deng00/go-base/logging"
+	"github.com/imskyd/go-frame-base/base"
 	"github.com/jinzhu/gorm"
-	"go-frame-base/base"
 )
 
 var logger *logging.SugaredLogger

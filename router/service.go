@@ -3,13 +3,13 @@ package router
 import (
 	redisPkgBase "github.com/deng00/go-base/cache/redis"
 	"github.com/deng00/go-base/db/mysql"
+	"github.com/imskyd/go-frame-base/actions"
+	auth02 "github.com/imskyd/go-frame-base/auth0"
+	"github.com/imskyd/go-frame-base/base"
+	"github.com/imskyd/go-frame-base/database"
+	redisPkg "github.com/imskyd/go-frame-base/redis"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
-	"go-frame-base/actions"
-	auth02 "go-frame-base/auth0"
-	"go-frame-base/base"
-	"go-frame-base/database"
-	redisPkg "go-frame-base/redis"
 )
 
 func init() {

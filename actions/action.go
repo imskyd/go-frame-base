@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"github.com/CoinSummer/go-notify"
 	"github.com/imroc/req"
+	"github.com/imskyd/go-frame-base/base"
 	"github.com/sirupsen/logrus"
-	"go-frame-base/base"
 )
 
 var logger *logrus.Logger

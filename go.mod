@@ -1,4 +1,4 @@
-module go-frame-base
+module github.com/imskyd/go-frame-base
 
 go 1.17
 
