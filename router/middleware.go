@@ -19,7 +19,7 @@ type BrowserUser struct {
 	Token      string
 }
 
-func (srv *Service) userMustLoginMiddleWare() gin.HandlerFunc {
+func (srv *Service) UserMustLoginMiddleWare() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		_, err := srv.getBrowserUser(c)
 		if err != nil {
@@ -34,7 +34,7 @@ func (srv *Service) userMustLoginMiddleWare() gin.HandlerFunc {
 	}
 }
 
-func (srv *Service) teamBasicMiddleWare() gin.HandlerFunc {
+func (srv *Service) TeamBasicMiddleWare() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if c.Request.Method != http.MethodGet {
 			browserUser, _ := srv.getBrowserUser(c)
@@ -52,7 +52,7 @@ func (srv *Service) teamBasicMiddleWare() gin.HandlerFunc {
 	}
 }
 
-func (srv *Service) teamOperateMiddleWare() gin.HandlerFunc {
+func (srv *Service) TeamOperateMiddleWare() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		if c.Request.Method != http.MethodGet {
 			browserUser, _ := srv.getBrowserUser(c)

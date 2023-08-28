@@ -30,25 +30,23 @@ func (srv *Service) GetRouter() *gin.Engine {
 	}
 
 	//middleware, after this, all api need login
-	router.Use(srv.userMustLoginMiddleWare())
-
 	v1 := router.Group(srv.prefix)
+	v1.Use(srv.UserMustLoginMiddleWare())
 	{
 		v1.GET("/mine/profile", srv.getProfile)
 		v1.PUT("/mine/profile", srv.updateProfile)
 		v1.Use(srv.userStatusMiddleWare())
-		v1.GET("/mine/invitations", srv.getInvitations)
 		v1.DELETE("/user", srv.userDelete)
 
 		teams := v1.Group("/teams")
 		{
 			teams.POST("", srv.createTeam)
-			teams.Use(srv.teamBasicMiddleWare())
+			teams.Use(srv.TeamBasicMiddleWare())
 			teams.GET("", srv.getMyTeams)
 			teams.GET("/:team_id", srv.getTeam)
 			teams.GET("/:team_id/members", srv.getTeamMember)
 
-			teams.Use(srv.teamOperateMiddleWare())
+			teams.Use(srv.TeamOperateMiddleWare())
 			teams.DELETE("/:team_id", srv.deleteTeam)
 			teams.PUT("/:team_id", srv.updateTeam)
 			teams.POST("/:team_id/members", srv.addTeamMember)

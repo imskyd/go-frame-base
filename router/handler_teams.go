@@ -215,28 +215,6 @@ func (srv *Service) getMyTeams(ctx *gin.Context) {
 	return
 }
 
-func (srv *Service) getInvitations(ctx *gin.Context) {
-	var records []TeamUser
-	var filters Filters
-
-	browserUser, _ := srv.getBrowserUserFromContext(ctx)
-	filters = filters.Add("user_id = ?", browserUser.UserId)
-	filters = filters.Add("status = ?", TeamUserStatusPending)
-	order := NewOrderBy()
-
-	conditions := DbConditions{
-		Fields:   []string{"id", "team_id", "role", "created_at"},
-		Model:    &records,
-		Filters:  &filters,
-		Order:    &order,
-		Preloads: []string{"Team"},
-	}
-	data := GetRecords(srv.mysql.Client, &conditions)
-
-	ReturnSuccess(ctx, data)
-	return
-}
-
 func (srv *Service) dealInvitations(ctx *gin.Context) {
 	id := ctx.Param("id")
 	resp := ctx.Param("response")
