@@ -17,7 +17,7 @@ func init() {
 }
 
 // New create new router service
-func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *types.JwtConfig, auth0Config *auth0.Config, redisConfig *redisPkgBase.Config, smtpConfig *types.SmtpConfig) (srv *Service, err error) {
+func New(appName string, prefix string, dbConfig *mysql.Config, jwtConfigFromFile *types.JwtConfig, auth0Config *auth0.Config, redisConfig *redisPkgBase.Config, smtpConfig *types.SmtpConfig) (srv *Service, err error) {
 	actions.SetSmtpConfig(smtpConfig)
 
 	db := database.NewMysql(dbConfig)
@@ -34,6 +34,7 @@ func New(prefix string, dbConfig *mysql.Config, jwtConfigFromFile *types.JwtConf
 	srv.logger = logger
 	auth02.SetLogger(logger)
 	srv.prefix = prefix
+	srv.appName = appName
 	return srv, nil
 }
 

@@ -152,6 +152,7 @@ type Service struct {
 	logger      *logrus.Logger
 	redis       *redisV8.Client
 	prefix      string
+	appName     string
 }
 
 type UpdateUserParams struct {

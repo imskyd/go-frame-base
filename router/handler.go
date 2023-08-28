@@ -398,7 +398,7 @@ func (srv *Service) logout(ctx *gin.Context) {
 func (srv *Service) sendEmail(ctx *gin.Context, emailAddr string, code string) {
 	host := ctx.Request.Host
 	emailInfo := email.Info{
-		Subject: "[ Contract view Invitation ]",
+		Subject: fmt.Sprintf("[ %s Invitation ]", srv.appName),
 		Content: "Please click the link to join the group: " + host + "/api/v1/team/invite?code=" + code,
 	}
 	j, _ := json.Marshal(emailInfo)
