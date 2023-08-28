@@ -1,12 +1,12 @@
 package router
 
 import (
-	"cs-products-conview-api/base"
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/gin-gonic/gin"
 	redisV8 "github.com/go-redis/redis/v8"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
+	"go-frame-base/base"
 	"strings"
 )
 

@@ -1,4 +1,4 @@
-module cs-products-conview-api
+module go-frame-base
 
 go 1.17
 

@@ -1,15 +1,15 @@
 package router
 
 import (
-	"cs-products-conview-api/actions"
-	auth02 "cs-products-conview-api/auth0"
-	"cs-products-conview-api/base"
-	"cs-products-conview-api/database"
-	redisPkg "cs-products-conview-api/redis"
 	redisPkgBase "github.com/deng00/go-base/cache/redis"
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/raven-ruiwen/go-helper/auth0"
 	"github.com/sirupsen/logrus"
+	"go-frame-base/actions"
+	auth02 "go-frame-base/auth0"
+	"go-frame-base/base"
+	"go-frame-base/database"
+	redisPkg "go-frame-base/redis"
 )
 
 func init() {

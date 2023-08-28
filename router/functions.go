@@ -2,7 +2,6 @@ package router
 
 import (
 	"context"
-	"cs-products-conview-api/auth0"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,6 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/jinzhu/gorm"
+	"go-frame-base/auth0"
 	"math/rand"
 	"regexp"
 	"strings"

@@ -1,11 +1,11 @@
 package database
 
 import (
-	"cs-products-conview-api/base"
 	"fmt"
 	"github.com/deng00/go-base/db/mysql"
 	"github.com/deng00/go-base/logging"
 	"github.com/jinzhu/gorm"
+	"go-frame-base/base"
 )
 
 var logger *logging.SugaredLogger

@@ -1,9 +1,6 @@
 package router
 
 import (
-	"cs-products-conview-api/actions"
-	auth02 "cs-products-conview-api/auth0"
-	oauth2 "cs-products-conview-api/auth0/oauth"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -16,6 +13,9 @@ import (
 	"github.com/imroc/req"
 	"github.com/jinzhu/gorm"
 	"github.com/raven-ruiwen/go-helper/auth0"
+	"go-frame-base/actions"
+	auth02 "go-frame-base/auth0"
+	oauth2 "go-frame-base/auth0/oauth"
 	"net/http"
 	"strings"
 	"time"
