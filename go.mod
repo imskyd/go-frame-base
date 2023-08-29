@@ -4,7 +4,6 @@ go 1.17
 
 require (
 	github.com/CoinSummer/go-notify v0.0.7
-	github.com/deng00/go-base v0.0.13
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/gzip v0.0.6
 	github.com/gin-contrib/sessions v0.0.5
@@ -18,6 +17,7 @@ require (
 )
 
 require (
+	github.com/CoinSummer/go-base v0.0.2 // indirect
 	github.com/alicebob/gopher-json v0.0.0-20200520072559-a9ecdc9d1d3a // indirect
 	github.com/alicebob/miniredis/v2 v2.15.1 // indirect
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect

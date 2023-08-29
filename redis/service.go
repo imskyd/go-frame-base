@@ -2,7 +2,7 @@ package redis
 
 import (
 	"crypto/tls"
-	"github.com/deng00/go-base/cache/redis"
+	"github.com/CoinSummer/go-base/cache/redis"
 	redisV8 "github.com/go-redis/redis/v8"
 )
 

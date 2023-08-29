@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"github.com/deng00/go-base/db/mysql"
+	"github.com/CoinSummer/go-base/db/mysql"
 	"github.com/jinzhu/gorm"
 	"log"
 )

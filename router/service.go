@@ -1,8 +1,8 @@
 package router
 
 import (
-	redisPkgBase "github.com/deng00/go-base/cache/redis"
-	"github.com/deng00/go-base/db/mysql"
+	redisPkgBase "github.com/CoinSummer/go-base/cache/redis"
+	"github.com/CoinSummer/go-base/db/mysql"
 	"github.com/imskyd/go-frame-base/actions"
 	auth02 "github.com/imskyd/go-frame-base/auth0"
 	"github.com/imskyd/go-frame-base/database"

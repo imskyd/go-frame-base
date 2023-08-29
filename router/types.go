@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/deng00/go-base/db/mysql"
+	"github.com/CoinSummer/go-base/db/mysql"
 	"github.com/gin-gonic/gin"
 	redisV8 "github.com/go-redis/redis/v8"
 	"github.com/imskyd/go-frame-base/types"
