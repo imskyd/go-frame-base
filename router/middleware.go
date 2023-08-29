@@ -14,7 +14,6 @@ import (
 
 type BrowserUser struct {
 	UserId     int64 `json:"user_id"`
-	Role       Role  `json:"role"`
 	SubId      int64 `json:"sub_id"`
 	ExpireTime int64 `json:"expire_time"`
 	Token      string
