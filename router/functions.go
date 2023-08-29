@@ -11,9 +11,7 @@ import (
 	"github.com/imskyd/go-frame-base/auth0"
 	"github.com/jinzhu/gorm"
 	"math/rand"
-	"reflect"
 	"regexp"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -34,55 +32,8 @@ func (srv *Service) getAuth0AccessToken() string {
 	return res
 }
 
-func (srv *Service) GetTeamFromContext(ctx *gin.Context) (*Team, error) {
-	teamId, _ := ctx.Cookie("team_id")
-	if teamId == "" {
-		teamId = ctx.Param("team_id")
-	}
-
-	if teamId == "" {
-		teamId = ctx.Query("team_id")
-	}
-
-	if teamId == "" {
-		return nil, fmt.Errorf("team_id not exist in cookie, param, or query")
-	}
-
-	team := &Team{}
-	if err := srv.mysql.Client.Model(Team{}).Where("id=?", teamId).First(team).Error; err != nil {
-		return nil, err
-	}
-	return team, nil
-}
-
 func (srv *Service) GetBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, error) {
-	userCtx, err := srv.getBrowserUserFromContext(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	teamId, exists := ctx.Get("teamId")
-	if !exists {
-		return nil, fmt.Errorf("teamId not exist, plz set teamId in gin context")
-	}
-
-	if reflect.TypeOf(teamId).Kind() != reflect.String {
-		return nil, fmt.Errorf("teamId is not a string")
-	}
-
-	uTeamId, err := strconv.ParseUint(teamId.(string), 10, 64)
-	if err != nil {
-		return nil, fmt.Errorf("parse teamId: %v", err)
-	}
-
-	err = srv.mysql.Client.Model(&TeamUser{}).Select("base_teams_users.role").
-		Joins("left join base_users as user on base_teams_users.user_id = user.id").
-		Where("base_teams_users.team_id =? and base_teams_users.user_id= ?", uTeamId, userCtx.UserId).
-		Scan(userCtx.Role).Error
-	if err != nil {
-		return nil, err
-	}
-	return userCtx, nil
+	return srv.getBrowserUserFromContext(ctx)
 }
 
 func (srv *Service) getBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, error) {
