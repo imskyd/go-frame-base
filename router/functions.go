@@ -36,6 +36,16 @@ func (srv *Service) GetBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, e
 	return srv.getBrowserUserFromContext(ctx)
 }
 
+// GetTeamByTeamId 通过id获取team详情 /**
+func (srv *Service) GetTeamByTeamId(id int64) (Team, error) {
+	return srv.getTeamById(id)
+}
+
+// GetTeamUserInfo 获取user在某个team下的详情（role）/**
+func (srv *Service) GetTeamUserInfo(teamId int64, userId int64) (TeamUser, error) {
+	return srv.getTeamUser(teamId, userId)
+}
+
 func (srv *Service) getBrowserUserFromContext(ctx *gin.Context) (*BrowserUser, error) {
 	var token string
 	if cookieToken, err := ctx.Cookie("token"); err == nil {
