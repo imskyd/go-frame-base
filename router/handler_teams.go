@@ -145,14 +145,12 @@ func (srv *Service) addTeamMember(ctx *gin.Context) {
 		ReturnErrorWithMsg(ctx, InvalidFormData, fmt.Sprintf("wrong role, only %s, %s, %s", RoleAdmin, RoleOperator, RoleViewer))
 		return
 	}
-	var isInviteUser bool
 	var inviteCode string
-	user, err := srv.getUserByEmail(body.Email)
-	if err != nil {
-		inviteCode = srv.generateInviteCode(&TeamUser{})
-		go srv.sendEmail(ctx, body.Email, inviteCode)
-		isInviteUser = true
-	}
+	user, _ := srv.getUserByEmail(body.Email)
+
+	inviteCode = srv.generateInviteCode(&TeamUser{})
+	go srv.sendEmail(ctx, body.Email, inviteCode)
+
 	teamUser, err := srv.getTeamUser(body.TeamId, user.Id)
 	if err == nil {
 		if teamUser.Status == TeamUserStatusPending {
@@ -166,14 +164,11 @@ func (srv *Service) addTeamMember(ctx *gin.Context) {
 	var record TeamUser
 	record.TeamId = body.TeamId
 	record.UserId = user.Id
-	record.Status = TeamUserStatusJoined
+	record.Status = TeamUserStatusPending
 	record.Role = body.Role
-	if isInviteUser {
-		record.Status = TeamUserStatusPending
-		record.InviteEmail = body.Email
-		record.InviteCode = inviteCode
-		record.ExpireAt = time.Now().Unix() + 60
-	}
+	record.InviteEmail = body.Email
+	record.InviteCode = inviteCode
+	record.ExpireAt = time.Now().Unix() + 60
 	srv.mysql.Client.Create(&record)
 	ReturnSuccess(ctx, struct{}{})
 	return

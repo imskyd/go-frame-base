@@ -49,6 +49,13 @@ func (srv *Service) teamInvite(ctx *gin.Context) {
 		ReturnErrorWithMsg(ctx, InternalError, "invitation expired")
 		return
 	}
+	if user, err := srv.getUserByEmail(teamUser.InviteEmail); err == nil {
+		teamData := make(map[string]interface{})
+		teamData["status"] = TeamUserStatusJoined
+		teamData["user_id"] = user.Id
+		teamData["invite_email"] = ""
+		srv.mysql.Client.Model(TeamUser{}).Where("invite_code = ?", teamUser.InviteCode).Updates(teamData)
+	}
 	srv.login(ctx)
 }
 
