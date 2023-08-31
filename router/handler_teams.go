@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
+	"github.com/jinzhu/gorm"
 	"strconv"
 	"time"
 )
@@ -146,8 +147,10 @@ func (srv *Service) addTeamMember(ctx *gin.Context) {
 		return
 	}
 	var inviteCode string
-	user, _ := srv.getUserByEmail(body.Email)
-
+	user, err := srv.getUserByEmail(body.Email)
+	if err == gorm.ErrRecordNotFound {
+		user.Id = 0
+	}
 	inviteCode = srv.generateInviteCode(&TeamUser{})
 	go srv.sendEmail(ctx, body.Email, inviteCode)
 
