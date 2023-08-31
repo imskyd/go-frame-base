@@ -168,7 +168,7 @@ func (srv *Service) addTeamMember(ctx *gin.Context) {
 	record.Role = body.Role
 	record.InviteEmail = body.Email
 	record.InviteCode = inviteCode
-	record.ExpireAt = time.Now().Unix() + 60
+	record.ExpireAt = time.Now().Unix() + 86400
 	srv.mysql.Client.Create(&record)
 	ReturnSuccess(ctx, struct{}{})
 	return
