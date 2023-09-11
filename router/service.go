@@ -33,6 +33,7 @@ func New(appName string, prefix string, dbConfig *mysql.Config, jwtConfigFromFil
 	logger := logrus.StandardLogger()
 	srv.logger = logger
 	auth02.SetLogger(logger)
+	actions.SetActionLogger(logger)
 	srv.prefix = prefix
 	srv.appName = appName
 	return srv, nil

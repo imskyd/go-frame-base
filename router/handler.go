@@ -4,8 +4,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"github.com/CoinSummer/go-notify"
-	"github.com/CoinSummer/go-notify/email"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -404,25 +402,7 @@ func (srv *Service) logout(ctx *gin.Context) {
 
 func (srv *Service) sendEmail(ctx *gin.Context, emailAddr string, code string) {
 	host := ctx.Request.Host
-	emailInfo := email.Info{
-		Subject: fmt.Sprintf("[ %s Invitation ]", srv.appName),
-		Content: "Please click the link to join the group: " + host + "/api/v1/team/invite?code=" + code,
-	}
-	j, _ := json.Marshal(emailInfo)
 
-	param := make(map[string]string)
-	param["platform"] = notify.PlatformEmail
-	param["token"] = emailAddr
-	param["channel"] = emailAddr
-	param["msg"] = string(j)
-
-	a := actions.Action{
-		Type:  "Notify",
-		Param: param,
-	}
-	a.Init()
-	err := a.Run()
-	if err != nil && param["platform"] != notify.PlatformDiscord {
-		fmt.Println(err.Error())
-	}
+	sender := actions.NewEmailSender()
+	sender.Send(emailAddr, fmt.Sprintf("[ %s Invitation ]", srv.appName), "Please click the link to join the group: "+host+"/api/v1/team/invite?code="+code)
 }
